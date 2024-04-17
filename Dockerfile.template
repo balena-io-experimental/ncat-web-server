@@ -1,0 +1,8 @@
+FROM alpine:latest
+
+RUN apk add --no-cache nmap-ncat
+
+WORKDIR /app
+COPY httpd.lua index.html /app
+
+ENTRYPOINT ["ncat", "--lua-exec", "httpd.lua", "--listen", "80", "--keep-open"]
